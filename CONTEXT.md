@@ -97,3 +97,7 @@ Discord `/run` (gated), agent self-update.
 - Tested: hub image via compose (healthy, TZ works), agent container on colima VM (enrolled, real host
   info/disks, terminal, systemd-run wrapper output+exit code).
 - Tooling installed on the Mac via brew: docker-buildx, docker-compose (colima has no Docker Desktop).
+- Pushed to Docker Hub (from the Mac, buildx builder `uc-builder`): `thekingziga/update-center-hub`
+  and `thekingziga/update-center-agent`, tags `0.1.0` + `latest`, platforms amd64/arm64/armv7.
+  Verified the published hub image pulls and runs. Repo secrets for the release workflow
+  are not set yet (user to add DOCKERHUB_USERNAME/DOCKERHUB_TOKEN); no git tag created yet.
