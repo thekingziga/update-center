@@ -1,0 +1,5 @@
+# Automatic HTTPS (Let's Encrypt) for the hub. DOMAIN comes from .env.
+{$DOMAIN} {
+	encode gzip
+	reverse_proxy hub:8080
+}

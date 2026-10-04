@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Update Center</title>
+  <link rel="icon" href="/favicon.svg">
+  <link rel="stylesheet" href="/vendor/xterm.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header id="topbar" hidden>
+    <a href="#/" class="brand"><img src="/favicon.svg" alt="" width="22" height="22"> Update Center</a>
+    <nav>
+      <a href="#/">Hosts</a>
+      <a href="#/approvals">Approvals <span id="approval-badge" class="badge warn" hidden></span></a>
+      <a href="#/activity">Activity</a>
+      <a href="#/add">Add host</a>
+      <a href="#/settings">Settings</a>
+    </nav>
+    <span id="conn" class="conn" title="Live connection"></span>
+  </header>
+  <main id="app"></main>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="/vendor/xterm.js"></script>
+  <script src="/vendor/addon-fit.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

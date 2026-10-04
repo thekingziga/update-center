@@ -1,0 +1,39 @@
+# Update Center hub.  Quick start:  cp .env.example .env && docker compose up -d
+# With automatic HTTPS (Caddy):     set DOMAIN in .env, then  docker compose --profile https up -d
+# Full guide: docs/hub.md
+services:
+  hub:
+    image: thekingziga/update-center-hub:${UC_VERSION:-latest}
+    build: .
+    container_name: update-center
+    restart: unless-stopped
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DB_PATH: /data/hub.db
+    ports:
+      - "${HUB_BIND:-8080}:8080"
+    volumes:
+      - hub-data:/data
+
+  caddy:
+    image: caddy:2-alpine
+    profiles: [https]
+    restart: unless-stopped
+    depends_on: [hub]
+    environment:
+      DOMAIN: ${DOMAIN:-}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+
+volumes:
+  hub-data:
+  caddy-data:
+  caddy-config:

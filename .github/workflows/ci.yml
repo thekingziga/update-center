@@ -1,0 +1,33 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: JavaScript syntax
+        run: for f in server/*.js public/app.js; do node --check "$f"; done
+      - name: Hub starts
+        run: |
+          DB_PATH=/tmp/ci.db PORT=8099 node server/index.js & sleep 3
+          curl -fsS http://127.0.0.1:8099/api/state
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+      - name: Agent compiles (Python 3.9)
+        run: python -m py_compile agent/uc-agent.py
+      - name: Shell syntax
+        run: sh -n agent/install.sh agent/docker-entrypoint.sh
+      - name: Docker images build
+        run: |
+          docker build -t hub-ci .
+          docker build -t agent-ci agent

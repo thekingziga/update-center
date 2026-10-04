@@ -1,0 +1,11 @@
+node_modules
+data
+.env
+.git
+.github
+.context
+.claude
+docs
+deploy
+scripts
+*.md

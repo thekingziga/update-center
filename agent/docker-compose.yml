@@ -1,0 +1,13 @@
+# Update Center agent as a container (alternative to the install script).
+# Usage: put UC_HUB and UC_TOKEN in a .env next to this file, then  docker compose up -d
+# After the first start the token is no longer needed. Full guide: docs/agent.md
+services:
+  agent:
+    image: thekingziga/update-center-agent:${UC_VERSION:-latest}
+    container_name: uc-agent
+    restart: unless-stopped
+    privileged: true   # required: the agent manages the host (updates, reboot, terminal)
+    pid: host          # required: lets the launcher enter the host's namespaces
+    environment:
+      UC_HUB: ${UC_HUB:-}
+      UC_TOKEN: ${UC_TOKEN:-}
