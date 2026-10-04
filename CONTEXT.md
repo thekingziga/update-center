@@ -81,7 +81,7 @@ Discord `/run` (gated), agent self-update.
   publish everything to GitHub as a new nice repo. Decisions (asked): public repo, English-only
   docs, name `update-center` → github.com/thekingziga/update-center, images
   `thekingziga/update-center-hub` + `thekingziga/update-center-agent` (multi-arch amd64/arm64/armv7).
-- Hub image: `Dockerfile` (node:24-alpine, non-root, /data volume, healthcheck). `docker-compose.yml`
+- Hub image: `Dockerfile` (node:22-alpine for armv7 support, non-root, /data volume, healthcheck). `docker-compose.yml`
   with optional `https` profile (Caddy, `deploy/Caddyfile`, DOMAIN in .env).
 - Agent image = privileged launcher (`agent/Dockerfile`, `agent/docker-entrypoint.sh`): needs
   `--privileged --pid host`, writes agent to host via nsenter and runs it in host namespaces with
